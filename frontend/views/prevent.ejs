@@ -1,0 +1,146 @@
+<%- include ('layouts/header.ejs'); %>
+
+	<div class="container">
+		<div class="accordion" id="accordionPanelsStayOpenExample">
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button" type="button" data-bs-toggle="collapse"
+						data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
+						aria-controls="panelsStayOpen-collapseOne">
+						Информация о заболеваниях, путях передачи, методах диагностики заболевания ВИЧ.
+					</button>
+				</h2>
+				<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+					<div class="accordion-body">
+						<strong>ВИЧ инфекция</strong> – это вирусное заболевание человека, вызывается вирусом
+						иммунодефицита
+						человека, характеризуется медленным прогрессирующим поражением иммунной системы, в результате
+						организм перестает справляться с другими заболеваниями, такими как: грипп, ангина, пневмония,
+						туберкулез, онкологические заболевания, и т.д.
+					</div>
+				</div>
+			</div>
+
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button" type="button" data-bs-toggle="collapse"
+						data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+						aria-controls="panelsStayOpen-collapseTwo">
+						Информация о заболеваниях, путях передачи, методах диагностики заболевания Гепатит С.
+					</button>
+				</h2>
+				<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
+					<div class="accordion-body">
+						<strong>Гепатит С</strong>- это вирусное поражение печени человека, вызванное вирусом гепатита
+						С, может развиться у любого человека и наблюдается чаще у молодых людей. В исходе заболевание
+						приводит к циррозу печени или раку печени. Гепатит С называют «ласковым убийцей» из-за
+						способности маскировать истинную причину под видом множества других заболеваний.
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container">
+		<h5>Поиск организаций</h5>
+	</div>
+
+	<div class="container">
+		<form class="validated-form" method="GET" id="form_prevent">
+			<div class="mb-3">
+				<label for="region" class="form-label">Регион (Субъект РФ)</label>
+				<input type="text" class="form-control" id="region" name="region" aria-describedby="region">
+			</div>
+			<div class="mb-3">
+				<label for="municipality" class="form-label">Город (населённый пункт)</label>
+				<input type="text" class="form-control" id="municipality" name="municipality">
+			</div>
+			<button type="submit" class="btn btn-primary">Поиск</button>
+		</form>
+	</div>
+
+	<div class="container">
+		<ul class="list" id="list">
+		</ul>
+	</div>
+
+
+	<script>
+		fm = document.querySelector('#form_prevent');
+
+		function createLiFromArray(data) {
+			const insert = document.querySelector('#list');
+			for (let elem = document.querySelector('li.added_li'); elem; elem = document.querySelector('li.added_li')) {
+				elem.remove();
+			}
+			if (data && data.detail !== "Организации не найдены!") {
+				for (let item of data) {
+					// id 1 для НКО, 2 - реб центры, 3 - центры спида
+					if (item.institution_type_id == 1) {
+						let li = document.createElement('li');
+						let all_phones = '';
+						const phones = [item.phone1, item.phone2];
+						let is_first = true;
+						for (let phone of phones) {
+							if (phone !== null && typeof phone !== 'undefined') {
+								if (is_first === false) {
+									console.log('not first');
+									all_phones += ', ' + phone;
+								} else {
+									all_phones = phone;
+								}
+								is_first = false;
+							}
+						}
+						all_phones += '.';
+
+						let all_emails = '';
+						const emails = [item.email1, item.email2, item.email3];
+						is_first = true;
+						for (let email of emails) {
+							if (email !== null && typeof email !== 'undefined') {
+								if (is_first === false) {
+									all_emails += ', ' + email;
+								} else {
+									all_emails = email;
+								}
+								is_first = false;
+							}
+						}
+
+						li.innerHTML = item.name.trim() + '. &nbsp; Адрес: ' + item.address + '. &nbsp; Эл. почта: ' + all_emails + '. &nbsp; Телефон: ' + all_phones;
+						li.className = 'added_li'
+						insert.insertAdjacentElement("afterend", li);
+					}
+				}
+			} else {
+				let li = document.createElement('li');
+				li.innerHTML = "Организации не найдены";
+				insert.insertAdjacentElement("afterend", li);
+			}
+		}
+
+
+
+
+		fm.addEventListener('submit', e => {
+			e.preventDefault()
+			const o = {}
+			new FormData(fm).forEach((value, key) => o[key] = value)
+			fetch(`http://localhost:8000/help_centers` + '?' + 'region=' + o.region
+				+ '&municipality=' + o.municipality, {
+				method: 'GET',
+				headers: {
+				},
+			})
+				.then(raw => raw.json())
+				.then(data => createLiFromArray(data))
+				.catch(err => console.log(err))
+		});
+	</script>
+
+
+
+
+	<%- include ('layouts/footer.ejs'); %>
