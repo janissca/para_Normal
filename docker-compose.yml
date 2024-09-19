@@ -1,0 +1,13 @@
+# version: '3.8'
+
+# services:
+    
+#   name_services:
+#     build: 
+#     container_name: 
+#     working_dir: 
+#     volumes:
+#       - 
+#     command: 
+#     ports:
+#       - 
