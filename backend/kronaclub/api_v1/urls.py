@@ -5,19 +5,20 @@ from api_v1.views import (
     api_root,
     EventViewSet,
     LocationViewSet,
+    AttendeeViewSet,
+    ThemeOfEventViewSet,
+    EventThemeViewSet,
 )
 
-# from api_v1.views import EventsViewSet
 
 app_name = 'api'
 
 router = routers.DefaultRouter()
 router.register('events', EventViewSet, basename='events')
 router.register('locations', LocationViewSet, basename='locations')
-# router.register('attendees', AttendeesViewSet)
-# router.register('types_of_event', TypesOfEventViewSet)
-# router.register('users', UsersViewSet)
-# urlpatterns = router.urls
+router.register('attendees', AttendeeViewSet, basename='attendees')
+router.register('types_of_events', ThemeOfEventViewSet, basename='types_of_events')
+router.register('event_themes', EventThemeViewSet, basename='event_themes')
 
 
 urlpatterns = [

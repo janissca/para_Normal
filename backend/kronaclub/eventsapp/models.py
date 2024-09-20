@@ -25,7 +25,7 @@ class Event(models.Model):
 
     name = models.CharField(verbose_name='Заголовок', max_length=100)
     description = models.CharField(verbose_name='Описание', max_length=255)
-    type = models.CharField(verbose_name='Тип события', max_length=2, choices=EventType.choices)
+    event_type = models.CharField(verbose_name='Тип события', max_length=2, choices=EventType.choices)
     start_date = models.DateTimeField(verbose_name='Дата и время начала')
     end_date = models.DateTimeField(verbose_name='Дата и время окончания')
     host_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -48,15 +48,15 @@ class EventTheme(models.Model):
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
 
 
-class User(models.Model):
-    first_name = models.CharField(verbose_name='Имя', max_length=30)
-    last_name = models.CharField(verbose_name='Фамилия', max_length=30)
-    email = models.EmailField(verbose_name='e-mail')
-    telegram_id = models.IntegerField(unique=True)
+# class User(models.Model):
+#     first_name = models.CharField(verbose_name='Имя', max_length=30)
+#     last_name = models.CharField(verbose_name='Фамилия', max_length=30)
+#     email = models.EmailField(verbose_name='e-mail')
+#     telegram_id = models.IntegerField(unique=True)
 
-    class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
+#     class Meta:
+#         verbose_name = 'Пользователь'
+#         verbose_name_plural = 'Пользователи'
 
 
 class Attendee(models.Model):

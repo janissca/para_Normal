@@ -3,9 +3,9 @@ from rest_framework import serializers
 from eventsapp.models import (
     Event,
     Location,
-    # Attendee,
-    # ThemeOfEvent,
-    # EventTheme
+    Attendee,
+    ThemeOfEvent,
+    EventTheme
 )
 
 
@@ -21,19 +21,19 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# class AttendeeSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Attendee
-#         fields = '__all__'  
+class AttendeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Attendee
+        fields = '__all__'  
     
 
-# class ThemeOfEventSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = ThemeOfEvent
-#         fields = '__all__'
+class ThemeOfEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ThemeOfEvent
+        fields = '__all__'
 
 
-# class EventThemeSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = EventTheme
-#         fields = '__all__'
+class EventThemeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventTheme
+        fields = '__all__'

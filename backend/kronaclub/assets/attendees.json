@@ -1,0 +1,22 @@
+[
+    {
+        "event": "Выпить кофе",
+        "user": "test@test.ru"
+    },
+    {
+        "event": "Лекция",
+        "user": "test@test.ru"
+    },
+    {
+        "event": "Лекция",
+        "user": "qwerty@test.ru"
+    },
+    {
+        "event": "Повышение кфалификации",
+        "user": "test@test.ru"
+    },
+    {
+        "event": "Повышение кфалификации",
+        "user": "qwerty@test.ru"
+    }
+]

@@ -9,18 +9,17 @@ from rest_framework import status, viewsets
 from eventsapp.models import (
     Event,
     Location,
-    # Attendee,
-    # ThemeOfEvent,
-    # EventTheme
+    Attendee,
+    ThemeOfEvent,
+    EventTheme
 )
 from eventsapp.serializers import (
     EventSerializer,
     LocationSerializer,
-    # AttendeeSerializer,
-    # ThemeOfEventSerializer,
-    # EventThemeSerializer
+    AttendeeSerializer,
+    ThemeOfEventSerializer,
+    EventThemeSerializer
 )
-
 
 
 @api_view(['GET'])
@@ -34,6 +33,9 @@ def api_root(request, format=None):
         # 'password change': reverse('api:rest_password_change', request=request, format=format),
         'events': reverse('api:events-list', request=request, format=format),
         'locations': reverse('api:locations-list', request=request, format=format),
+        'attendees': reverse('api:attendees-list', request=request, format=format),
+        'types_of_events': reverse('api:types_of_events-list', request=request, format=format),
+        'event_themes': reverse('api:event_themes-list', request=request, format=format),
     })
 
 
@@ -45,6 +47,22 @@ class EventViewSet(viewsets.ModelViewSet):
 class LocationViewSet(viewsets.ModelViewSet):
     serializer_class = LocationSerializer
     queryset = Location.objects.all()
+
+
+class AttendeeViewSet(viewsets.ModelViewSet):
+    serializer_class = AttendeeSerializer
+    queryset = Attendee.objects.all()
+
+
+class ThemeOfEventViewSet(viewsets.ModelViewSet):
+    serializer_class = ThemeOfEventSerializer
+    queryset = ThemeOfEvent.objects.all()
+
+
+class EventThemeViewSet(viewsets.ModelViewSet):
+    serializer_class = EventThemeSerializer
+    queryset = EventTheme.objects.all()
+
 
 
 # class UserViewSet(viewsets.ModelViewSet):

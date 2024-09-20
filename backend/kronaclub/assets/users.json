@@ -1,0 +1,14 @@
+[
+    {
+        "email": "test@test.ru",
+        "first_name": "test",
+        "date_of_birth": "1990-05-07",
+        "password": "erdfghjkl"
+    },
+    {
+        "email": "qwerty@test.ru",
+        "first_name": "qwerty",
+        "date_of_birth": "1999-08-01",
+        "password": "erdfghjkl"
+    }
+]

@@ -51,6 +51,7 @@ class CustomUser(AbstractUser):
         verbose_name_plural = 'Пользователи'
 
     def delete(self, *args, **kwargs):
+        
         self.is_active = False
         self.save()
 
