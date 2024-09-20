@@ -17,5 +17,10 @@
     "express-session": "^1.18.0",
     "express-validator": "^7.1.0",
     "method-override": "^3.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "eslint": "^9.10.0",
+    "globals": "^15.9.0"
   }
 }

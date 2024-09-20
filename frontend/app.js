@@ -2,12 +2,8 @@ const express = require('express');
 const path = require('path');
 
 const index = require('./routes/index');
-const prevent = require('./routes/prevent');
-const treatment = require('./routes/treatment');
-const lawhelp = require('./routes/lawhelp');
-const literature = require('./routes/literature');
-const info = require('./routes/info');
-const adm = require('./routes/adm');
+const myevents = require('./routes/myevents');
+const account = require('./routes/account');
 
 const app = express();
 
@@ -45,12 +41,8 @@ const flash = require('express-flash');
 app.use(flash());
 
 
-app.use('/prevent', prevent);
-app.use('/treatment', treatment);
-app.use('/lawhelp', lawhelp);
-app.use('/literature', literature);
-app.use('/info', info);
-app.use('/adm', adm);
+app.use('/myevents', myevents);
+app.use('/account', account);
 app.use('/', index);
 
 // app.all('*', (req, res, next) => {
