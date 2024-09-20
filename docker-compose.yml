@@ -10,7 +10,7 @@ services:
       - ./frontend:/src
     depends_on:
       - backend
-    command: ["npm", "start"]
+    command: ["node", "app.js"]
 
   backend:
     build: ./backend
@@ -23,7 +23,7 @@ services:
       - DATABASE_URL=postgres://myuser:mypassword@db:5432/mydb
     depends_on:
       - db
-    command: #команда для запуска
+    command: ["python", "kronaclub/manage.py", "runserver", "0.0.0.0:8000"]
 
   db:
     image: postgres:13-alpine
