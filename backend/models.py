@@ -10,13 +10,14 @@ class Event(models.Model):
         INDUSTRY_TABLE = 'IT', _('Отраслевой стол')
         PUBLIC_EVENT = 'PI', _('Внешнее мероприятие')
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(verbose_name='Название мероприятия', max_length=100)
     description = models.CharField(max_length=255)
     type = models.CharField(max_length=2, choices=EventType.choices)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     host_id = models.ForeignKey('User', on_delete=models.CASCADE)
     location_id = models.ForeignKey('Location', on_delete=models.CASCADE)
+    
 
 
 class Location(models.Model):
