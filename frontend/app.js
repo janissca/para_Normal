@@ -38,6 +38,7 @@ app.use(session({
 }));
 
 const flash = require('express-flash');
+const config = require('./config');
 app.use(flash());
 
 
@@ -49,7 +50,6 @@ app.use('/', index);
 //   next(new ExpressError('Page not found', 404));
 // })
 
-
-app.listen(3000, function () {
-  console.log('Server running at port 3000: http://127.0.0.1:3000')
+app.listen(config.server.port, function () {  
+  console.log(`Server running at port ${config.server.port}: ${config.server.host}`)
 });

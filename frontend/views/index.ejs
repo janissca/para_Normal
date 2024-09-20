@@ -5,12 +5,80 @@ including header content which is common for all pages
 
 
     <div class="container">
-        <p>
+
         <h5>
             Все мероприятия
         </h5>
-        </p>
     </div>
+
+    <div class="container">
+        <ul class="list" id="list">
+        </ul>
+    </div>
+
+
+    <script>
+        fm = document.querySelector('#form_prevent');
+        function createLiFromArray(data) {
+            const insert = document.querySelector('#list');
+            for (let elem = document.querySelector('li.added_li'); elem; elem = document.querySelector('li.added_li')) {
+                elem.remove();
+            }
+            if (data && data.detail !== "Организации не найдены!") {
+                for (let item of data) {
+
+                    if (item.institution_type_id == 1) {
+                        let li = document.createElement('li');
+                        let all_phones = '';
+                        const phones = [item.phone1, item.phone2];
+                        let is_first = true;
+                        for (let phone of phones) {
+                            if (phone !== null && typeof phone !== 'undefined') {
+                                if (is_first === false) {
+                                    console.log('not first');
+                                    all_phones += ', ' + phone;
+                                } else {
+                                    all_phones = phone;
+                                }
+                                is_first = false;
+                            }
+                        }
+                        all_phones += '.';
+                        let all_emails = '';
+                        const emails = [item.email1, item.email2, item.email3];
+                        is_first = true;
+                        for (let email of emails) {
+                            if (email !== null && typeof email !== 'undefined') {
+                                if (is_first === false) {
+                                    all_emails += ', ' + email;
+                                } else {
+                                    all_emails = email;
+                                }
+                                is_first = false;
+                            }
+                        }
+                        li.innerHTML = item.name.trim() + '. &nbsp; Адрес: ' + item.address + '. &nbsp; Эл. почта: ' + all_emails + '. &nbsp; Телефон: ' + all_phones;
+                        li.className = 'added_li'
+                        insert.insertAdjacentElement("afterend", li);
+                    }
+                }
+            } else {
+                let li = document.createElement('li');
+                li.innerHTML = "Организации не найдены";
+                insert.insertAdjacentElement("afterend", li);
+            }
+        }
+
+
+            fetch(`http://localhost:8000/api/v1/events/` , {
+                method: 'GET',
+                headers: {
+                },
+            })
+                .then(raw => raw.json())
+                .then(data => console.log(data))
+                .catch(err => console.log(err));
+    </script>
 
 
     <!--
