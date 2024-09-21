@@ -1,0 +1,43 @@
+[
+    {
+      "event_id": "Индивидуальная встреча с инвесторами",
+      "user_id": "ivan.petrov@example.com"
+    },
+    {
+      "event_id": "Круглый стол по вопросам экологии",
+      "user_id": "olga.sidorova@example.com"
+    },
+    {
+      "event_id": "Отраслевой стол по IT-технологиям",
+      "user_id": "dmitry.kuznetsov@example.com"
+    },
+    {
+      "event_id": "Общественное мероприятие для молодежи",
+      "user_id": "sergey.nikolaev@example.com"
+    },
+    {
+      "event_id": "Круглый стол по вопросам экономики",
+      "user_id": "irina.fedorova@example.com"
+    },
+    {
+      "event_id": "Отраслевой стол по медицинским инновациям",
+      "user_id": "andrei.smirnov@example.com"
+    },
+    {
+      "event_id": "Индивидуальная встреча с экспертами рынка",
+      "user_id": "olga.kalinskaya@example.com"
+    },
+    {
+      "event_id": "Индивидуальная встреча с инвесторами",
+      "user_id": "admin1@example.com"
+    },
+    {
+      "event_id": "Круглый стол по вопросам экологии",
+      "user_id": "admin2@example.com"
+    },
+    {
+      "event_id": "Общественное мероприятие для молодежи",
+      "user_id": "nikita.davydov@example.com"
+    }
+  ]
+  
