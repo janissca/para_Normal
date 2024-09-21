@@ -14,7 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: pwd
-    - run: Make
+    - run: cp Make:/home/runner/work/para_Normal/para_Normal
+    - run: ls
       
 
    
