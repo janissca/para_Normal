@@ -11,6 +11,13 @@ including header content which is common for all pages
         </h5>
     </div>
 
+    <div class="container">
+        <div class="d-grid gap-2">
+            <a href="/new" class="btn btn-success">Создать мероприятие</a>
+        </div>
+    </div>
+
+
     <% if (helpers.isIterable(events)) { %>
         <% for(let event of events) { %>
             <div class="container">
@@ -25,23 +32,27 @@ including header content which is common for all pages
                         <h6 class="card-title">
                             <%= helpers.formatDate(event.end_date) %> заканчивается
                         </h6>
-                        <p class="card-text">
-                            <%= event.description %>
-                        </p>
-                        <a href="#" class="btn btn-primary">Посмотреть</a>
-                        <a href="#" class="btn btn-success">Подписаться</a>
+                        <p class="card-text"></p>
+                        <%= event.count_of_attendees %> подписаны на участие
+                            </p>
+                            <p class="card-text">
+                                <%= event.description %>
+                            </p>
+
+                            <a href="#" class="btn btn-primary">Посмотреть</a>
+                            <a href="#" class="btn btn-success">Подписаться</a>
                     </div>
                 </div>
             </div>
 
-            <% %>
+
+            <% } %>
                 <% } %>
-                    <% } %>
 
 
 
 
-                        <!--
+                    <!--
 including footer content which is common for all pages
 -->
-                        <%- include ('layouts/footer.ejs'); %>
+                    <%- include ('layouts/footer.ejs'); %>
