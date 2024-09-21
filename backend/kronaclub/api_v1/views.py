@@ -1,7 +1,7 @@
 # from rest_framework.decorators import api_view
 # from rest_framework.response import Response
 # from rest_framework.reverse import reverse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, action
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
@@ -35,7 +35,8 @@ from users.serializers import (
     TypeOfUserSerializer,
 )
 from api_v1.filters import (
-    UserFilter
+    UserFilter,
+    EventFilter,
 )
 
 
@@ -73,11 +74,27 @@ def api_root(request, format=None):
 class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
     queryset = Event.objects.all()
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    search_fields = ['$name']
+    filterset_class = EventFilter
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = EventDetailSerializer(instance, context={'request': request})
         return Response(serializer.data)
+
+    # @action(detail=True, url_path='type')
+    # def get_events_type(self, request, *args, **kwargs):
+    #     # instance = self.get_object()
+    #     # similar_queryset = Product.objects.filter(
+    #     #     category__name_category=instance.category, gender=instance.gender) \
+    #     #                        .exclude(id=instance.id).order_by('?')[0:4]
+    #     # serializer = ProductSerializer(similar_queryset, many=True,
+    #                                 #    context={'request': request})
+    #     envequeryset = Event.objects.all()
+
+    #     serializer = EventSerializer(self.get_queryset(), many=True, context={'request': request})
+    #     return Response(serializer.data)
 
 
 class LocationViewSet(viewsets.ModelViewSet):
@@ -105,14 +122,8 @@ class UsersViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    search_fields = ['first_name', 'last_name']
+    search_fields = ['$first_name', '$last_name']
     filterset_class = UserFilter
-    # filterset_fields = ['email', 'first_name', 'last_name', 'telegram_login', 'telegram_id', 'phone_number']
-    # filter_backends = (filters.SearchFilter, filters.OrderingFilter,)
-    # search_fields = ('email', 'first_name', 'last_name', 'telegram_login', 'telegram_id', 'phone_number')
-    # ordering_fields = ('email', 'last_name', 'first_name', 'is_active')
-    # ordering = ['-is_active', ]
-    # http_method_names = ['get', 'put', 'patch', 'head', 'delete', 'options']
 
 
 class TypeOfUserViewSet(viewsets.ModelViewSet):
