@@ -23,49 +23,28 @@ app.get('/', function (req, res) {
 
 });
 
-async function fetchLocations() {
-	const response = await fetch('https://app.bits-company.ru/kronaclub/api/v1/locations', {
-		method: "GET"
-	});
-	const locations = await response.json();
-	return locations;
-}
 
-async function fetchThemes() {
-	const response = await fetch('https://app.bits-company.ru/kronaclub/api/v1/types_of_events', {
-		method: "GET"
-	});
-	const themes = await response.json();
-	return themes;
-}
-
-async function fetchMoviesAndCategories() {
-	const [moviesResponse, categoriesResponse] = await Promise.all([
+async function fetchInfoForNewEvent() {
+	const [locationsResponse, typesResponse] = await Promise.all([
 		fetch('https://app.bits-company.ru/kronaclub/api/v1/locations'),
 		fetch('https://app.bits-company.ru/kronaclub/api/v1/types_of_events')
 	]);
 
-	const movies = await moviesResponse.json();
-	const categories = await categoriesResponse.json();
+	const locations = await locationsResponse.json();
+	const types = await typesResponse.json();
 
-	return [movies, categories];
+	return [locations, types];
 }
 
 
 
 app.get('/new', (req, res) => {
 	let locations;
-	// fetchLocations().then(data => {
-	// 	locations = data;
-	// })
 	let themes;
 
-	// fetchLocations().then(data => {
-	// 	themes = data;
-	// })
-	fetchMoviesAndCategories().then(([movies, categories]) => {
-		locations = movies;     // fetched movies
-		themes = categories; // fetched categories
+	fetchInfoForNewEvent().then(([movies, categories]) => {
+		locations = movies;
+		themes = categories;
 	})
 		.then(() => {
 			console.log("locations", locations)
@@ -73,11 +52,8 @@ app.get('/new', (req, res) => {
 			res.render('newevent', { title: 'Создать мероприятие', locations: locations, themes: themes, helpers: helpers })
 		})
 		.catch(error => {
-			// /movies or /categories request failed
+			console.log(error)
 		});
-
-
-
 
 })
 
