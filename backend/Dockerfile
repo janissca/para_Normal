@@ -5,4 +5,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 RUN cd kronaclub && python manage.py makemigrations && python manage.py makemigrations users eventsapp && python manage.py migrate && python manage.py fill_db
 EXPOSE 8000
-CMD ["python", "kronaclub/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["sh", "-c", "cd kronaclub && gunicorn --workers=3 --bind 0.0.0.0:8000 kronaclub.wsgi:application"]
+# CMD ["gunicorn", "--workers=3", "--bind", "0.0.0.0:8000", "kronaclub.kronaclub.wsgi:application"]
+# CMD ["python", "kronaclub/manage.py", "runserver", "0.0.0.0:8000"]
