@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: pwd
-    - run: cp Makefile /home/runner/work/para_Normal/para_Normal/Makefile
+    - run: cp /Users/irina/para_Normal/Makefile /home/runner/work/para_Normal/para_Normal/Makefile
     - run: ls
       
 
