@@ -12,16 +12,18 @@ class Location(models.Model):
 
     class Meta:
         verbose_name = 'Локация события'
+        verbose_name_plural = 'Локации событий'
+
+    def __str__(self) -> str:
+        return self.venue
 
 
 class Event(models.Model):
-
     class EventType(models.TextChoices):
         PERSONAL_MEETING = 'PM', _('Индивидуальная встреча')
         ROUND_TABLE = 'RT', _('Круглый стол')
         INDUSTRY_TABLE = 'IT', _('Отраслевой стол')
         PUBLIC_EVENT = 'PI', _('Внешнее мероприятие')
-
 
     name = models.CharField(verbose_name='Заголовок', max_length=100)
     description = models.CharField(verbose_name='Описание', max_length=255)
@@ -34,6 +36,10 @@ class Event(models.Model):
     class Meta:
         verbose_name = 'Событие'
         verbose_name_plural = 'События'
+    
+    def __str__(self) -> str:
+        return self.name
+
 
 class ThemeOfEvent(models.Model):
     theme = models.CharField(max_length=20)
@@ -42,32 +48,29 @@ class ThemeOfEvent(models.Model):
         verbose_name = 'Тема событий'
         verbose_name_plural = 'Темы событий'
 
+    def __str__(self) -> str:
+        return self.theme
+
 
 class EventTheme(models.Model):
     theme_id = models.ForeignKey(ThemeOfEvent, on_delete=models.CASCADE)
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
 
-
-# class User(models.Model):
-#     first_name = models.CharField(verbose_name='Имя', max_length=30)
-#     last_name = models.CharField(verbose_name='Фамилия', max_length=30)
-#     email = models.EmailField(verbose_name='e-mail')
-#     telegram_id = models.IntegerField(unique=True)
-
-#     class Meta:
-#         verbose_name = 'Пользователь'
-#         verbose_name_plural = 'Пользователи'
+    class Meta:
+        verbose_name = 'Тема события'
+        verbose_name_plural = 'Темы событий'
+    
+    def __str__(self) -> str:
+        return f"{self.event_id.id}. {self.event_id.name} - {self.theme_id.theme}"
 
 
 class Attendee(models.Model):
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-
-# class TypeOfUser(models.Model):
-#     type = models.CharField(verbose_name='Тип пользователя', max_length=20)
-
-
-# class UserType(models.Model):
-#     # user_id = models.ForeignKey('User', on_delete=models.CASCADE)
-#     type_id = models.ForeignKey(TypeOfUser, on_delete=models.CASCADE)
+    class Meta:
+        verbose_name = 'Участник события'
+        verbose_name_plural = 'Участники события'
+    
+    def __str__(self) -> str:
+        return f"{self.event_id.id}. {self.event_id.name}  - {self.user_id.first_name} - {self.user_id.last_name}"

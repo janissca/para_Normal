@@ -1,0 +1,17 @@
+
+
+build:
+	docker build -t my_django_app .
+	docker run -d --name backend -p 8000:8000 my_django_app
+	opnen http://127.0.0.1:8000
+
+run:
+	docker run -d --name backend -p 8000:8000 my_django_app
+
+stop:
+	docker stop backend
+
+clean:
+	docker stop backend
+	docker remove backend
+	docker rmi my_django_app
