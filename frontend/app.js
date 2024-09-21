@@ -53,16 +53,6 @@ app.use('/myevents', myevents);
 app.use('/account', account);
 app.use('/', index);
 
-// app.all('*', (req, res, next) => {
-//   next(new ExpressError('Page Not Found', 404))
-// })
-
-// app.use((err, req, res, next) => {
-//   const { statusCode = 500 } = err;
-//   if (!err.message) err.message = 'Oh No, Something Went Wrong!'
-//   res.status(statusCode).render('error', { err })
-// })
-
 app.listen(config.server.port, function () {  
   console.log(`Server running at port ${config.server.port}: ${config.server.host}`)
 });
