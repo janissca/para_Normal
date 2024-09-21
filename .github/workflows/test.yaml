@@ -13,8 +13,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - run: pwd
-    - run: Makefile
+      - uses: actions/checkout@main
+      - run: make
       
 
    
