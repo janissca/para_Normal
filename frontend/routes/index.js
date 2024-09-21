@@ -70,7 +70,7 @@ app.get('/new', (req, res) => {
 		.then(() => {
 			console.log("locations", locations)
 			console.log("themes", themes)
-			res.render('newEvent', { title: 'Создать мероприятие', locations: locations, themes: themes, helpers: helpers })
+			res.render('newevent', { title: 'Создать мероприятие', locations: locations, themes: themes, helpers: helpers })
 		})
 		.catch(error => {
 			// /movies or /categories request failed
