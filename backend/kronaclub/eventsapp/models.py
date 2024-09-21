@@ -36,9 +36,17 @@ class Event(models.Model):
     class Meta:
         verbose_name = 'Событие'
         verbose_name_plural = 'События'
-    
+
     def __str__(self) -> str:
         return self.name
+
+    @property
+    def event_type_name(self):
+        return self.get_event_type_display()
+
+    @property
+    def count_of_attendees(self):
+        return self.attendee.count()
 
 
 class ThemeOfEvent(models.Model):
@@ -53,8 +61,8 @@ class ThemeOfEvent(models.Model):
 
 
 class EventTheme(models.Model):
-    theme_id = models.ForeignKey(ThemeOfEvent, on_delete=models.CASCADE)
-    event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
+    theme_id = models.ForeignKey(ThemeOfEvent, on_delete=models.CASCADE, related_name='event_theme')
+    event_id = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='event_theme')
 
     class Meta:
         verbose_name = 'Тема события'
@@ -65,8 +73,8 @@ class EventTheme(models.Model):
 
 
 class Attendee(models.Model):
-    event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    event_id = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='attendee')   
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='attendee')
 
     class Meta:
         verbose_name = 'Участник события'

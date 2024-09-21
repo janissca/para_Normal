@@ -23,11 +23,14 @@ class UserFilter(filters.FilterSet):
 
 
 class EventFilter(filters.FilterSet):
-    type_event_id = filters.CharFilter(field_name="event_type__type_of_event")
+    type_event_id = filters.CharFilter(field_name="event_theme__theme_id")
+    start_date = filters.DateTimeFromToRangeFilter()
+    host_id = filters.NumberFilter()
+    location_id = filters.NumberFilter()
 
     class Meta:
         model = Event
-        fields = ["type_event_id"]
+        fields = ['type_event_id', 'start_date', 'host_id', 'location_id']
 
 
 # class CompanyIdFilter(filters.RangeFilter, filters.DateFilter):
