@@ -1,0 +1,91 @@
+[
+    {
+      "user": "ivan.petrov@example.com",
+      "type_of_user": "Администратор"
+    },
+    {
+      "user": "olga.sidorova@example.com",
+      "type_of_user": "Администратор"
+    },
+    {
+      "user": "dmitry.kuznetsov@example.com",
+      "type_of_user": "Резидент"
+    },
+    {
+      "user": "irina.fedorova@example.com",
+      "type_of_user": "Резидент"
+    },
+    {
+      "user": "sergey.nikolaev@example.com",
+      "type_of_user": "Резидент"
+    },
+    {
+      "user": "tatiana.belova@example.com",
+      "type_of_user": "Резидент"
+    },
+    {
+      "user": "andrei.smirnov@example.com",
+      "type_of_user": "Резидент"
+    },
+    {
+      "user": "olga.kalinskaya@example.com",
+      "type_of_user": "Резидент"
+    },
+    {
+      "user": "ivanova.ekaterina@example.com",
+      "type_of_user": "Резидент"
+    },
+    {
+      "user": "petr.bozhko@example.com",
+      "type_of_user": "Резидент"
+    },
+    {
+      "user": "maria.bobrova@example.com",
+      "type_of_user": "Резидент"
+    },
+    {
+      "user": "nikita.davydov@example.com",
+      "type_of_user": "Гость"
+    },
+    {
+      "user": "marina.pavlova@example.com",
+      "type_of_user": "Гость"
+    },
+    {
+      "user": "vladimir.morozov@example.com",
+      "type_of_user": "Гость"
+    },
+    {
+      "user": "alina.ivanova@example.com",
+      "type_of_user": "Гость"
+    },
+    {
+      "user": "sergey.sukhanov@example.com",
+      "type_of_user": "Гость"
+    },
+    {
+      "user": "viktoria.romanova@example.com",
+      "type_of_user": "Гость"
+    },
+    {
+      "user": "alexander.kovalev@example.com",
+      "type_of_user": "Гость"
+    },
+    {
+      "user": "ivan.petrov@example.com",
+      "type_of_user": "Приглашенный спикер"
+    },
+    {
+      "user": "olga.sidorova@example.com",
+      "type_of_user": "Приглашенный спикер"
+    },
+    {
+      "user": "dmitry.kuznetsov@example.com",
+      "type_of_user": "Приглашенный спикер"
+    },
+    {
+      "user": "irina.fedorova@example.com",
+      "type_of_user": "Приглашенный спикер"
+    }
+  ]
+  

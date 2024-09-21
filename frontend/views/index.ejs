@@ -5,15 +5,43 @@ including header content which is common for all pages
 
 
     <div class="container">
-        <p>
+
         <h5>
             Все мероприятия
         </h5>
-        </p>
     </div>
 
+    <% if (helpers.isIterable(events)) { %>
+        <% for(let event of events) { %>
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= event.name %>
+                        </h5>
+                        <h6 class="card-title">
+                            <%= helpers.formatDate(event.start_date) %> начинается
+                        </h6>
+                        <h6 class="card-title">
+                            <%= helpers.formatDate(event.end_date) %> заканчивается
+                        </h6>
+                        <p class="card-text">
+                            <%= event.description %>
+                        </p>
+                        <a href="#" class="btn btn-primary">Посмотреть</a>
+                        <a href="#" class="btn btn-success">Подписаться</a>
+                    </div>
+                </div>
+            </div>
 
-    <!--
+            <% %>
+                <% } %>
+                    <% } %>
+
+
+
+
+                        <!--
 including footer content which is common for all pages
 -->
-    <%- include ('layouts/footer.ejs'); %>
+                        <%- include ('layouts/footer.ejs'); %>
