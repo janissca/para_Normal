@@ -14,10 +14,11 @@ class TypeOfUserSerializer(serializers.ModelSerializer):
 
 
 class UserTypeSerializer(serializers.ModelSerializer):
-    type = serializers.CharField(source='type_of_user.name')
+    type_id = serializers.CharField(source='type_of_user.id', read_only=True)
+    type_name = serializers.CharField(source='type_of_user.name', read_only=True)
     class Meta:
         model = UserType
-        fields = ('id', 'type')
+        fields = ('type_id', 'type_name')
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -28,17 +29,6 @@ class CustomUserSerializer(serializers.ModelSerializer):
         fields = ('id', 'email', 'first_name', 'last_name', 'date_of_birth', 'telegram_login', 'telegram_id', 'phone_number', 'user_type')
         read_only_fields = ('email', 'user_type')
 
-    # def update(self, instance, validated_data):
-    #     instance.email = validated_data.get('email', instance.email)
-    #     instance.first_name = validated_data.get('first_name', instance.first_name)
-    #     instance.last_name = validated_data.get('last_name', instance.last_name)
-    #     instance.date_of_birth = validated_data.get('date_of_birth', instance.date_of_birth)
-    #     instance.telegram_login = validated_data.get('telegram_login', instance.telegram_login)
-    #     instance.telegram_id = validated_data.get('telegram_id', instance.telegram_id)
-    #     instance.phone_number = validated_data.get('phone_number', instance.phone_number)
-    #     instance.save()
-
-    #     return instance
 
 class CustomUserCreateSerializer(BaseUserCreateSerializer):
     class Meta(BaseUserCreateSerializer.Meta):

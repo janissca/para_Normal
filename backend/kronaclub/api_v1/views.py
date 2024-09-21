@@ -20,6 +20,7 @@ from eventsapp.models import (
 )
 from eventsapp.serializers import (
     EventSerializer,
+    EventDetailSerializer,
     LocationSerializer,
     AttendeeSerializer,
     ThemeOfEventSerializer,
@@ -33,6 +34,9 @@ from users.serializers import (
     CustomUserSerializer,
     TypeOfUserSerializer,
 )
+from api_v1.filters import (
+    UserFilter
+)
 
 
 class IsOwnerOrAdmin(permissions.BasePermission):
@@ -42,6 +46,7 @@ class IsOwnerOrAdmin(permissions.BasePermission):
             return True
 
         return obj.user == request.user
+
 
 @api_view(['GET'])
 def api_root(request, format=None):
@@ -69,6 +74,11 @@ class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
     queryset = Event.objects.all()
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = EventDetailSerializer(instance, context={'request': request})
+        return Response(serializer.data)
+
 
 class LocationViewSet(viewsets.ModelViewSet):
     serializer_class = LocationSerializer
@@ -94,8 +104,10 @@ class UsersViewSet(viewsets.ModelViewSet):
     serializer_class = CustomUserSerializer
     queryset = CustomUser.objects.all()
 
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['email', 'first_name']
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    search_fields = ['first_name', 'last_name']
+    filterset_class = UserFilter
+    # filterset_fields = ['email', 'first_name', 'last_name', 'telegram_login', 'telegram_id', 'phone_number']
     # filter_backends = (filters.SearchFilter, filters.OrderingFilter,)
     # search_fields = ('email', 'first_name', 'last_name', 'telegram_login', 'telegram_id', 'phone_number')
     # ordering_fields = ('email', 'last_name', 'first_name', 'is_active')
@@ -106,4 +118,3 @@ class UsersViewSet(viewsets.ModelViewSet):
 class TypeOfUserViewSet(viewsets.ModelViewSet):
     serializer_class = TypeOfUserSerializer
     queryset = TypeOfUser.objects.all()
-
