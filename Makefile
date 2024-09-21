@@ -3,7 +3,7 @@
 .PHONY:fmt vet build
 
 build:
-	docker-compose up
+	docker compose up
 
 build_backend:
 	cd backend && docker build -t my_django_app . 
