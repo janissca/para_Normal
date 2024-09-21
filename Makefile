@@ -31,3 +31,7 @@ clear_all: clear_backend clear_frontend
 delete_all:
 	docker rm -vf $(docker ps -aq)
 	docker rmi -f $(docker images -aq)
+
+interact:
+	# docker exec -it backend cd kronaclub && python manage.py makemigrations && python manage.py makemigrations users eventsapp && python manage.py migrate && python manage.py fill_db
+	docker exec -it backend sh

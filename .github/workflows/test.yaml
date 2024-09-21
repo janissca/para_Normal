@@ -13,7 +13,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - run: cd backend && docker build -t my_django_app . 
+      - uses: actions/checkout@main
+      - run: make
       
 
    
