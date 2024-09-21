@@ -12,6 +12,20 @@
                     </div>
                 </div>
                 <div class="mb-3">
+                    <label class="form-label" for="type">Тип мероприятия</label>
+                    <select class="form-select" aria-label="Default select example" id="type"
+                        name="event[type]" required>
+                            <option value="PM">Индивидуальная встреча</option>
+                            <option value="RT">Круглый стол</option>
+                            <option value="IT">Отраслевой стол</option>        
+                            <option value="PI">Общественное мероприятие</option>   
+                    </select>
+                    <div class="valid-feedback">
+                        Отлично!
+                    </div>
+                </div>
+
+                <div class="mb-3">
                     <label class="form-label" for="location">Место проведения</label>
                     <select class="form-select" aria-label="Default select example" id="location"
                         name="event[location]" required>
@@ -30,9 +44,9 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="event_type">Тема</label>
-                    <select class="form-select" aria-label="Default select example" id="event_type"
-                        name="event[event_type]" required>
+                    <label class="form-label" for="event_theme">Тема</label>
+                    <select class="form-select" aria-label="Default select example" id="event_theme"
+                        name="event[event_theme]" required>
                         <% console.log(themes) %>
                             <% if (helpers.isIterable(themes)) { %>
                                 <% for(let theme of themes) { %>

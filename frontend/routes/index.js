@@ -66,11 +66,11 @@ app.post('/', catchAsync(async (req, res, next) => {
 	const raw = JSON.stringify({
 		name: event.name,
 		description: event.description,
-		event_type: "PM",
+		event_type: event.type,
 		start_date: event.start_date,
 		end_date: event.end_date,
 		host_id: 1,
-		location_id: 1
+		location_id: event.location
 	});
 	console.log(raw);
 
