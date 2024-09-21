@@ -14,8 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: pwd
-    - run: scp -R /Users/irina/para_Normal/Makefile irina@10.199.182.73:~/para_Normal/para_Normal/
-    - run: ls
+    - run: Makefile
       
 
    
