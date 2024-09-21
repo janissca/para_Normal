@@ -77,7 +77,29 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+DATABASES2 = {
+    'default': {
+        'NAME': os.environ.get('POSTGRES_NAME', 'kronaclubdb'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': '5432',
+    }
+}
+DATABASES3 = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'paSsWoRd1',
+        'HOST': 'postgres',
+        'PORT': '5432',
+    }
+}
+DATABASES4 = {
+    'default': 'postgres://postgres:paSsWoRd1@postgres:5432/postgres'
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {

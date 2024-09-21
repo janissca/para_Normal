@@ -23,7 +23,10 @@ jwcrypto==1.5.6
 kombu==5.4.2
 oauthlib==3.2.2
 packaging==24.1
+postgres==4.0
 prompt_toolkit==3.0.47
+psycopg2-binary==2.9.9
+psycopg2-pool==1.2
 pycparser==2.22
 PyJWT==2.9.0
 python-dateutil==2.9.0.post0
