@@ -1,6 +1,3 @@
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
-# from rest_framework.reverse import reverse
 from rest_framework.decorators import api_view, action
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
@@ -23,6 +20,7 @@ from eventsapp.serializers import (
     EventDetailSerializer,
     LocationSerializer,
     AttendeeSerializer,
+    AttendeeDetailSerializer,
     ThemeOfEventSerializer,
     EventThemeSerializer
 )
@@ -37,6 +35,7 @@ from users.serializers import (
 from api_v1.filters import (
     UserFilter,
     EventFilter,
+    AttendeeFilter,
 )
 
 
@@ -83,17 +82,18 @@ class EventViewSet(viewsets.ModelViewSet):
         serializer = EventDetailSerializer(instance, context={'request': request})
         return Response(serializer.data)
 
-    # @action(detail=True, url_path='type')
-    # def get_events_type(self, request, *args, **kwargs):
-    #     # instance = self.get_object()
-    #     # similar_queryset = Product.objects.filter(
-    #     #     category__name_category=instance.category, gender=instance.gender) \
-    #     #                        .exclude(id=instance.id).order_by('?')[0:4]
-    #     # serializer = ProductSerializer(similar_queryset, many=True,
-    #                                 #    context={'request': request})
-    #     envequeryset = Event.objects.all()
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     self.perform_create(serializer)
+    #     headers = self.get_success_headers(serializer.data)
+    #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-    #     serializer = EventSerializer(self.get_queryset(), many=True, context={'request': request})
+    # @action(detail=True, url_path='subscribe')
+    # def subscribe(self, request, *args, **kwargs):
+    #     instance = self.get_object()
+    #     # similar_queryset = Product.objects.filter(category__name_category=instance.category, gender=instance.gender)
+    #     # serializer = EventSerializer(instance, context={'request': request})
     #     return Response(serializer.data)
 
 
@@ -105,6 +105,13 @@ class LocationViewSet(viewsets.ModelViewSet):
 class AttendeeViewSet(viewsets.ModelViewSet):
     serializer_class = AttendeeSerializer
     queryset = Attendee.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['event_id', 'user_id']
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = AttendeeDetailSerializer(instance, context={'request': request})
+        return Response(serializer.data)
 
 
 class ThemeOfEventViewSet(viewsets.ModelViewSet):
