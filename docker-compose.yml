@@ -19,11 +19,15 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/src
+    environment:
+      POSTGRES_NAME: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: paSsWoRd1
+      POSTGRES_HOST: postgres
     depends_on:
       - redis
       - postgres
-    # command: ["python", "kronaclub/manage.py", "runserver", "0.0.0.0:8000"]
-    command: ["gunicorn", "--workers=3", "--bind", "0.0.0.0:8000", "kronaclub/kronaclub.wsgi:application"]
+    command: ["sh", "-c", "cd kronaclub && gunicorn --workers=3 --bind 0.0.0.0:8000 kronaclub.wsgi:application"]
 
 
   redis:
@@ -33,12 +37,16 @@ services:
       - "6379:6379"
 
   postgres:
-    image: postgres:14-alpine
+    image: postgres:14
     container_name: postgres
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_NAME: kronaclubdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: paSsWoRd1
 
 volumes:
   frontend_data:

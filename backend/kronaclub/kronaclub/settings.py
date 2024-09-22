@@ -1,4 +1,4 @@
-
+import os
 import datetime
 from pathlib import Path
 
@@ -9,7 +9,7 @@ SECRET_KEY = 'django-insecure-#m093g+5hg+*r^4_b@s)%(ij^-rs$b)ekoa3qy7y91i7o7m56c
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
@@ -78,7 +78,29 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+DATABASES2 = {
+    'default': {
+        'NAME': os.environ.get('POSTGRES_NAME', 'kronaclubdb'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': '5432',
+    }
+}
+DATABASES3 = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'paSsWoRd1',
+        'HOST': 'postgres',
+        'PORT': '5432',
+    }
+}
+DATABASES4 = {
+    'default': 'postgres://postgres:paSsWoRd1@postgres:5432/postgres'
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -104,6 +126,8 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+STATIC_ROOT = '/root/para_Normal/backend/kronaclub/static'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -127,6 +151,7 @@ DJOSER = {
     'LOGIN_FIELD': 'email',
     'TOKEN_MODEL': 'rest_framework.authtoken.models.Token',
 }
+
 
 CELERY_BROKER_URL = "redis://localhost:6379"
 CELERY_RESULT_BACKEND = "redis://localhost:6379"

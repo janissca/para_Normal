@@ -1,0 +1,101 @@
+<%- include ('layouts/header.ejs'); %>
+
+    <div class="row">
+        <h1 class="text-center">Новое мероприятие</h1>
+        <div class="col-6 offset-3">
+            <form action="/" method="POST" novalidate class="validated-form">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Название</label>
+                    <input class="form-control" type="text" id="name" name="event[name]" required>
+                    <div class="valid-feedback">
+                        Отлично!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="type">Тип мероприятия</label>
+                    <select class="form-select" aria-label="Default select example" id="type"
+                        name="event[type]" required>
+                            <option value="PM">Индивидуальная встреча</option>
+                            <option value="RT">Круглый стол</option>
+                            <option value="IT">Отраслевой стол</option>        
+                            <option value="PI">Общественное мероприятие</option>   
+                    </select>
+                    <div class="valid-feedback">
+                        Отлично!
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="location">Место проведения</label>
+                    <select class="form-select" aria-label="Default select example" id="location"
+                        name="event[location]" required>
+                            <% if (helpers.isIterable(locations)) { %>
+                                <% for(let location of locations) { %>
+
+                                    <option value="<%= location.id %>">
+                                        <%= location.venue %>
+                                    </option>
+
+                                    <% } %>
+                                        <% } %>
+                    </select>
+                    <div class="valid-feedback">
+                        Отлично!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="event_theme">Тема</label>
+                    <select class="form-select" aria-label="Default select example" id="event_theme"
+                        name="event[event_theme]" required>
+                        <% console.log(themes) %>
+                            <% if (helpers.isIterable(themes)) { %>
+                                <% for(let theme of themes) { %>
+
+                                    <option value="<%= theme.id %>">
+                                        <%= theme.theme %>
+                                    </option>
+
+                                    <% } %>
+                                        <% } %>
+                    </select>
+                    <div class="valid-feedback">
+                        Отлично!
+                    </div>
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label" for="description">Описание</label>
+                    <textarea class="form-control" type="text" id="description" name="event[description]"
+                        required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="row justify-content-center">
+                        <div class="">
+                            <label for="startDate">Начало:</label>
+                            <input id="startDate" class="form-control" type="datetime-local" value="2024-10-01T10:00"
+                                name="event[start_date]" />
+                            <span id="startDateSelected"></span>
+                        </div>
+                        <div class="">
+                            <label for="endDate">Конец:</label>
+                            <input id="endDate" class="form-control" type="datetime-local" value="2024-10-01T11:00"
+                                name="event[end_date]" />
+                            <span id="endDateSelected"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <button class="btn btn-success">Отправить мероприятие на модерацию</button>
+                    </div>
+            </form>
+            <a href="/">Все мероприятия</a>
+        </div>
+    </div>
+
+    <%- include ('layouts/footer.ejs'); %>

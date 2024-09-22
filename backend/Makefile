@@ -3,7 +3,6 @@
 build:
 	docker build -t my_django_app .
 	docker run -d --name backend -p 8000:8000 my_django_app
-	opnen http://127.0.0.1:8000
 
 run:
 	docker run -d --name backend -p 8000:8000 my_django_app

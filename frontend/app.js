@@ -1,6 +1,9 @@
 const express = require('express');
 const path = require('path');
 
+const ExpressError = require('./utils/ExpressError');
+
+
 const index = require('./routes/index');
 const myevents = require('./routes/myevents');
 const account = require('./routes/account');
@@ -20,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')))
 
 
 app.use(methodOverride(function (req, res) {
@@ -47,10 +52,6 @@ app.use(flash());
 app.use('/myevents', myevents);
 app.use('/account', account);
 app.use('/', index);
-
-// app.all('*', (req, res, next) => {
-//   next(new ExpressError('Page not found', 404));
-// })
 
 app.listen(config.server.port, function () {  
   console.log(`Server running at port ${config.server.port}: ${config.server.host}`)
