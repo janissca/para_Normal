@@ -19,10 +19,12 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/src
-    # depends_on:
-    #   - redis
-    #   - postgres
-    command: ["python", "kronaclub/manage.py", "runserver", "0.0.0.0:8000"]
+    depends_on:
+      - redis
+      - postgres
+    # command: ["python", "kronaclub/manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["gunicorn", "--workers=3", "--bind", "0.0.0.0:8000", "kronaclub/kronaclub.wsgi:application"]
+
 
   redis:
     image: redis:7.0-alpine

@@ -1,5 +1,6 @@
 from rest_framework.decorators import api_view, action
 from rest_framework.reverse import reverse
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 from rest_framework import status, viewsets
@@ -72,7 +73,7 @@ def api_root(request, format=None):
 
 class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
-    queryset = Event.objects.all()
+    queryset = Event.objects.filter(verified=True)
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['$name']
     filterset_class = EventFilter
@@ -81,20 +82,6 @@ class EventViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         serializer = EventDetailSerializer(instance, context={'request': request})
         return Response(serializer.data)
-
-    # def create(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_create(serializer)
-    #     headers = self.get_success_headers(serializer.data)
-    #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-
-    # @action(detail=True, url_path='subscribe')
-    # def subscribe(self, request, *args, **kwargs):
-    #     instance = self.get_object()
-    #     # similar_queryset = Product.objects.filter(category__name_category=instance.category, gender=instance.gender)
-    #     # serializer = EventSerializer(instance, context={'request': request})
-    #     return Response(serializer.data)
 
 
 class LocationViewSet(viewsets.ModelViewSet):
@@ -127,7 +114,6 @@ class EventThemeViewSet(viewsets.ModelViewSet):
 class UsersViewSet(viewsets.ModelViewSet):
     serializer_class = CustomUserSerializer
     queryset = CustomUser.objects.all()
-
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['$first_name', '$last_name']
     filterset_class = UserFilter
@@ -136,3 +122,17 @@ class UsersViewSet(viewsets.ModelViewSet):
 class TypeOfUserViewSet(viewsets.ModelViewSet):
     serializer_class = TypeOfUserSerializer
     queryset = TypeOfUser.objects.all()
+
+
+class TelegramUserViewSet(APIView):
+    def post(self, request, format=None):
+        telegram_id = request.data.get('telegram_id')
+        telegram_login = request.data.get('telegram_login')
+        if not telegram_id or not telegram_login:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        user = CustomUser.objects.get(telegram_login=telegram_login)
+        user.telegram_id = telegram_id
+        user.save()
+
+        return Response(status=status.HTTP_200_OK)

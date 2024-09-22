@@ -1,6 +1,16 @@
 from django.db import models
+from django.db.models.signals import post_save, post_delete
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from django.dispatch import receiver
+
+# from taskapp.tasks import (
+#     handle_event_created,
+#     handle_event_updated,
+#     handle_event_deleted,
+#     handle_event_subscribed,
+#     handle_event_unsubscribed
+# )
 
 
 class Location(models.Model):
@@ -32,6 +42,7 @@ class Event(models.Model):
     end_date = models.DateTimeField(verbose_name='Дата и время окончания')
     host_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
+    verified = models.BooleanField(verbose_name='Подтверждено', default=False)
 
     class Meta:
         verbose_name = 'Событие'
@@ -82,3 +93,4 @@ class Attendee(models.Model):
     
     def __str__(self) -> str:
         return f"{self.event_id.id}. {self.event_id.name}  - {self.user_id.first_name} - {self.user_id.last_name}"
+

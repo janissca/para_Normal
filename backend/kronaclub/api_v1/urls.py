@@ -10,6 +10,7 @@ from api_v1.views import (
     EventThemeViewSet,
     UsersViewSet,
     TypeOfUserViewSet,
+    TelegramUserViewSet,
 )
 
 
@@ -28,6 +29,7 @@ router.register('types_of_users', TypeOfUserViewSet, basename='types_of_users')
 urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
+    path('telegram/', TelegramUserViewSet.as_view()),
     path('', api_root),
 ]
 

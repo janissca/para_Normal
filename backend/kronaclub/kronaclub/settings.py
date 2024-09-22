@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'users',
     'api_v1',
     'eventsapp',
+    'taskapp',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -126,3 +127,9 @@ DJOSER = {
     'LOGIN_FIELD': 'email',
     'TOKEN_MODEL': 'rest_framework.authtoken.models.Token',
 }
+
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'

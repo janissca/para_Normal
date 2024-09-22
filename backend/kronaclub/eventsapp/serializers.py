@@ -24,6 +24,7 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = '__all__'
+        ordering = ['start_date']
 
     # def perform_create(self, serializer):
     #     print(">>> ", self.request.data)
