@@ -19,7 +19,7 @@ djangorestframework==3.15.2
 djangorestframework-simplejwt==5.3.1
 djoser==2.2.3
 gunicorn==23.0.0
-h11==0.14.0
+h11==0.16.0
 httpcore==1.0.5
 httpx==0.27.2
 idna==3.10
